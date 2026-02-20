@@ -68,9 +68,9 @@ jobs:
     - name: Send success notification
       uses: appleboy/telegram-action@v0.1.0
       with:
-        to: 418883543
         token: 7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8
-        message: "✅ Build and Deployment Successful! Check it here: https://ovinokurov.github.io/tic-tac-toe/"
+        chat_id: 418883543
+        message: "✅ Build and Deployment Successful! 🎉 Check it here: https://ovinokurov.github.io/tic-tac-toe/"
 
   notify-failure:
     name: Notify Telegram on Failure
@@ -81,6 +81,6 @@ jobs:
     - name: Send failure notification
       uses: appleboy/telegram-action@v0.1.0
       with:
-        to: 418883543
         token: 7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8
+        chat_id: 418883543
         message: "❌ Workflow Failed! Check details in the Actions tab: https://github.com/ovinokurov/tic-tac-toe/actions"
