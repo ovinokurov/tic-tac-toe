@@ -9,7 +9,7 @@ on:
 
 jobs:
   deploy:
-    needs: [test] # Зависимость от workflow тестов
+    # removed needs dependency since no job in this file is defined.
     runs-on: ubuntu-latest
 
     steps:
