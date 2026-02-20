@@ -34,9 +34,9 @@ jobs:
 
     - name: Test Telegram Notification
       run: |
-        curl -s -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
+        curl --fail --silent --show-error -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
           -d chat_id=418883543 \
-          -d text="📤 Test message: Workflow testing notification integration"
+          -d text="📤 Adjusted Telegram notification: Workflow testing"
 
   build-and-deploy:
     name: Build and Deploy
