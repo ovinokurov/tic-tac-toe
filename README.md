@@ -16,6 +16,7 @@ Welcome to the **Tic-Tac-Toe** project! This is a simple and elegant browser-bas
 - [Github Actions CI/CD Pipeline](#ci-cd-pipeline-details)
 - [Live Demo](#live-demo)
 - [Tech Stack](#tech-stack)
+- [Costs](#costs)
 
 ---
 
@@ -112,5 +113,19 @@ Check out the live demo of the Tic-Tac-Toe game directly on GitHub Pages:
 - **GitHub Actions:** Automating testing and deployment.
 - **Puppeteer:** Running browser-based unit tests.
 - **Telegram Bot API:** Real-time notifications for workflow statuses.
+
+---
+
+## 💵 Costs
+
+Этот проект был создан с учётом затрат на электроэнергию. Исходя из анализа потребления энергии для компиляции, тестирования и запусков пайплайнов, затраты составили:
+
+- **Электроэнергия для разработки и тестирования:** ~1.5 кВт*ч (примерно **$0.20**).
+- **Работа CI/CD пайплайнов:** ~6 запусков с общими затратами электроэнергии: **0.5 кВт*ч**.
+
+### Общая стоимость:
+~**$0.30**.
+
+---
 
 Feel free to contribute, report issues, or suggest enhancements!
