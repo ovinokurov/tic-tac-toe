@@ -1,0 +1,44 @@
+name: Pages build and deployment
+
+description: Deployment workflow to build and publish to GitHub Pages.
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    needs: [test] # Зависимость от workflow тестов
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: |
+        npm install
+
+    - name: Build website
+      run: |
+        echo "Build process initiated..."
+
+    - name: Notify Telegram on failure
+      if: failure()
+      run: |
+        curl -s -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
+         -d chat_id=418883543 \
+         -d text="❌ Build or Deployment Failed! Check details in the Actions tab: https://github.com/ovinokurov/tic-tac-toe/actions"
+        npm run build
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist # Укажите правильный каталог, где находится готовый сайт

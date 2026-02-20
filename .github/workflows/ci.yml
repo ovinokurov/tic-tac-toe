@@ -1,4 +1,4 @@
-name: Run Tic-Tac-Toe Unit Tests
+name: run-tests
 
 on:
   push:
@@ -33,3 +33,10 @@ jobs:
       run: |
         echo "Running browser-based unit tests using Puppeteer"
         echo "Test suite passed"
+
+    - name: Notify Telegram on failure
+      if: failure()
+      run: |
+        curl -s -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
+         -d chat_id=418883543 \
+         -d text="❌ Unit Test Failed! Check details in the Actions tab: https://github.com/ovinokurov/tic-tac-toe/actions"
