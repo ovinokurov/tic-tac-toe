@@ -72,9 +72,11 @@ jobs:
     steps:
     - name: Send success notification
       run: |
-        curl -s -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
-         -d chat_id=418883543 \
-         -d text="✅ Build and Deployment Successful! Check it here: https://ovinokurov.github.io/tic-tac-toe/"
+        uses: appleboy/telegram-action@v0.3.4
+        with:
+          to: 418883543
+          token: 7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8
+          message: "✅ Build and Deployment Successful! Check it here: https://ovinokurov.github.io/tic-tac-toe/"
 
   notify-failure:
     name: Notify Telegram on Failure
@@ -84,6 +86,8 @@ jobs:
     steps:
     - name: Send failure notification
       run: |
-        curl -s -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
-         -d chat_id=418883543 \
-         -d text="❌ Workflow Failed! Check details in the Actions tab: https://github.com/ovinokurov/tic-tac-toe/actions"
+        uses: appleboy/telegram-action@v0.3.4
+        with:
+          to: 418883543
+          token: 7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8
+          message: "❌ Workflow Failed! Check details in the Actions tab: https://github.com/ovinokurov/tic-tac-toe/actions"
