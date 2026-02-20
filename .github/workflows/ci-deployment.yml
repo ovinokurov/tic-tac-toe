@@ -32,12 +32,6 @@ jobs:
       run: |
         echo "Running unit tests..."
 
-    - name: Test Telegram Notification
-      run: |
-        curl --fail --silent --show-error -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
-          -d chat_id=418883543 \
-          -d text="📤 Adjusted Telegram notification: Workflow testing"
-
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
@@ -71,9 +65,7 @@ jobs:
     needs: [build-and-deploy]
     steps:
     - name: Send success notification
-      run: |
-    - name: Send success notification
-      uses: appleboy/telegram-action@v0.3.4
+      uses: appleboy/telegram-action@v0.1.0
       with:
         to: 418883543
         token: 7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8
@@ -86,9 +78,7 @@ jobs:
     if: failure()
     steps:
     - name: Send failure notification
-      run: |
-    - name: Notify Telegram on Failure
-      uses: appleboy/telegram-action@v0.3.4
+      uses: appleboy/telegram-action@v0.1.0
       with:
         to: 418883543
         token: 7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8
