@@ -1,0 +1,83 @@
+name: CI and Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Tests
+      run: |
+        echo "Running unit tests..."
+
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build website
+      run: |
+        echo "Building the project..."
+        npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+
+  notify-success:
+    name: Notify Telegram on Success
+    runs-on: ubuntu-latest
+    needs: [build-and-deploy]
+    steps:
+    - name: Send success notification
+      run: |
+        curl -s -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
+         -d chat_id=418883543 \
+         -d text="✅ Build and Deployment Successful! Check it here: https://ovinokurov.github.io/tic-tac-toe/"
+
+  notify-failure:
+    name: Notify Telegram on Failure
+    runs-on: ubuntu-latest
+    needs: [test, build-and-deploy]
+    if: failure()
+    steps:
+    - name: Send failure notification
+      run: |
+        curl -s -X POST https://api.telegram.org/bot7962937891:AAEjCYh5FoYMlQ5u3DQZQftmX6Mk2bH4D_8/sendMessage \
+         -d chat_id=418883543 \
+         -d text="❌ Workflow Failed! Check details in the Actions tab: https://github.com/ovinokurov/tic-tac-toe/actions"
